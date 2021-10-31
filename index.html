@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>YTDownloader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="Web Video Downloader">
+    <meta name="keywords" content="Youtube, Video, Download">
+    <meta name="author" content="LeMustache">
+    <link rel="icon" href="/YTDownloaderIdon2.ico" type="image/x-icon">
+
+</head>
+
+<style>
+    body {
+        background-color: #b30202;
+        }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;
+    }
+
+    input {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 5px 50px;
+        background-color: #ff0000;  
+        border-radius: 10px;
+        color: white;
+        border: black;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        text-align: center;
+    }
+
+    input::placeholder {
+        color: white;
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #ff0000;
+        font-family: fantasy;
+        line-height: 0.3;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 5px rgb(43, 42, 42);;
+    }
+    
+    p {
+        text-align: center;
+        color: #ffffff;
+        font-family: sans-serif;
+    }
+
+    a {
+        text-align: center;
+        display: block;
+        color: #ffffff;
+        text-decoration: none;
+        margin-top: 3px;
+    }
+
+    a:visited {
+        color: #ffffff;
+    }
+
+    a:hover {
+        color: darkgray;
+    }
+
+    button {
+        display: block;
+        margin-top: 3px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 100px;
+        border-radius: 10px;
+        background-color: #ff0000;  
+        color: white;  
+        border: white;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    button:active {
+        background-color: #c00101;
+        box-shadow: 0 5px #666;
+        transform: translateY(1px);
+    }
+
+    button:hover {
+        box-shadow: 0 0px 0px 0 rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0);
+    }
+
+    .copyright {
+        text-align: center;
+    }
+
+</style>
+
+<body>
+    <img src="YTDownloaderIcon.png">
+    <h1>YTDownloader</h1>
+    <input type="text" id="URL" placeholder="Enter URL">
+    <button onclick="sendURL_Video()">Download Videos</button>
+    <button onclick="sendURL_Sound()">Download Sounds</button>
+    <!--<a href="C:\Users\eagle/Downloads/redditsave.com_yine_de_ahlanyor_aman-m9f1uqz060v71.mp4" target="_blank">Click To Start Download</a>-->
+    <p>©2021 LeMustache All Rights Reserved</p>
+
+    <script>
+        async function sendURL_Video() {
+           await fetch('http://localhost:8000/video',{
+                method: "POST",
+                /**mode:'cors',
+                credentials: 'include',**/
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({url:document.getElementById("URL").value,action:"Video"})
+           })
+           document.location.href = 'DownloadableFile.mp4'
+        }
+
+        async function sendURL_Sound() {
+           await fetch('http://localhost:8000/video',{
+                method: "POST",
+                /**mode:'cors',
+                credentials: 'include',**/
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({url:document.getElementById("URL").value,action:"Sound"})
+           })
+           document.location.href = 'DownloadableFile.mp3'
+        }
+
+        fetch('http://127.0.0.1:8000/')
+        .then(res => res.json())
+        .then(data => {console.log(data)})
+    </script>
+</body>
+
+</html>
