@@ -1,4 +1,5 @@
 from youtube_dl import YoutubeDL
+from fastapi.staticfiles import StaticFiles
 import os
 
 URLs = []
@@ -66,7 +67,6 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory=r"C:\Users\eagle\Desktop\Folders\Pyhton Codes\Websites\YTDownloader"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
@@ -82,7 +82,7 @@ class Video(BaseModel):
     url: str
     ##name: str
 
-@app.get("/")
+@app.get("/lol")
 async def main():
     return {"VideoName":""}
 
@@ -125,3 +125,4 @@ def delete_video(video_id: int):
 
 
 
+app.mount("/", StaticFiles(directory="html", html=True), name="html")
